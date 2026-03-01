@@ -1,15 +1,12 @@
 #include "raylib.h"
 #include "raymath.h"
 
-void draw_worldMap(Texture2D worldMap){
-
-    //well, i just wanna have a static one
-    Vector2 bgWorldMap{0.0,0.0};
+void draw_worldMap(Texture2D worldMap, Vector2 mapPos){
 
     const float rotationWorldMap{0.0};
     const float scaleWorldMap{4.0};
     
-    DrawTextureEx(worldMap, bgWorldMap, rotationWorldMap, scaleWorldMap, WHITE);
+    DrawTextureEx(worldMap, mapPos, rotationWorldMap, scaleWorldMap, WHITE);
 }
 
 int main(){
@@ -22,7 +19,7 @@ int main(){
     
     Texture2D worldMap = LoadTexture("nature_tileset/WorldMap24x24.png");
     Vector2 mapPos{0.0,0.0};
-    const float speed(4.0);
+    const float speed(5.0);
     
     SetTargetFPS(60);
     while (!WindowShouldClose()){
@@ -43,8 +40,8 @@ int main(){
             mapPos = Vector2Subtract(mapPos, Vector2Scale(Vector2Normalize(direction), speed));
         }
 
-        //Well, draw the world map obviously
-        draw_worldMap(worldMap);
+        //draw the world map
+        draw_worldMap(worldMap, mapPos);
 
         EndDrawing();
     }
