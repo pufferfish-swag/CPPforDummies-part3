@@ -1,4 +1,5 @@
 #include "raylib.h"
+#include "raymath.h"
 
 void draw_worldMap(Texture2D worldMap){
 
@@ -20,12 +21,28 @@ int main(){
     InitWindow(WindowWidth, WindowHeight, "Classy Clash - Winter Edition by Adjie Wahyudinata");
     
     Texture2D worldMap = LoadTexture("nature_tileset/WorldMap24x24.png");
+    Vector2 mapPos{0.0,0.0};
+    const float speed(4.0);
     
     SetTargetFPS(60);
     while (!WindowShouldClose()){
         BeginDrawing();
         ClearBackground(WHITE);
         
+        //moving the map with direction
+        Vector2 direction{};
+        const float movMapSpeed{1.0};
+        if(IsKeyDown(KEY_A)) direction.x -= movMapSpeed;
+        if(IsKeyDown(KEY_D)) direction.x += movMapSpeed;
+        if(IsKeyDown(KEY_W)) direction.y -= movMapSpeed;
+        if(IsKeyDown(KEY_S)) direction.y += movMapSpeed;
+        
+        //checking when player reach the edge of the map
+        if(Vector2Length(direction) != 0.0){
+            //set mapPos = mapPos - direction
+            mapPos = Vector2Subtract(mapPos, Vector2Scale(Vector2Normalize(direction), speed));
+        }
+
         //Well, draw the world map obviously
         draw_worldMap(worldMap);
 
