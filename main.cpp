@@ -9,6 +9,15 @@ void draw_worldMap(Texture2D worldMap, Vector2 mapPos){
     DrawTextureEx(worldMap, mapPos, rotationWorldMap, scaleWorldMap, WHITE);
 }
 
+class character
+{
+    public:
+        //data
+    private:
+        /* data */;
+};
+
+
 int main(){
     
     const int WindowWidth{576};
