@@ -16,6 +16,8 @@ void character::setScreenPos(int winWidth, int winHeight)
 
 void character::tick(float deltaTime)
 {
+    worldPosLastFrame = worldPos;
+    
     Vector2 direction{};
     const float movMapSpeed{1.0};
     if (IsKeyDown(KEY_A))
@@ -56,4 +58,8 @@ void character::tick(float deltaTime)
     Rectangle knightDest{screenPos.x, screenPos.y, 6.0f * width, 6.0f * height};
     Vector2 knightOrigin{};
     DrawTexturePro(texture, knightSource, knightDest, knightOrigin, 0.0f, WHITE);
+}
+
+void character::undoMovement(){
+    worldPos = worldPosLastFrame;
 }
