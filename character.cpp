@@ -1,16 +1,12 @@
 #include "character.h"
 #include "raymath.h"
 
-character::character(){
+character::character(int winWidth, int winHeight){
     width = texture.width / maxFrames;
     height = texture.height;
-}
 
-void character::setScreenPos(int winWidth, int winHeight)
-{
-    screenPos = {
-        (float)winWidth / 2.f - 4.f * (0.5f * width),
-        (float)winHeight / 2.f - 4.f * (0.5f * height)
+    screenPos = {   static_cast<float>(winWidth) / 2.f - scale * (0.5f * width),
+                    static_cast<float>(winHeight) / 2.f - scale * (0.5f * height)
     };
 }
 
@@ -55,7 +51,7 @@ void character::tick(float deltaTime)
     }
 
     Rectangle knightSource{frame * width, 0.0f, rightLeft * width, height};
-    Rectangle knightDest{screenPos.x, screenPos.y, 6.0f * width, 6.0f * height};
+    Rectangle knightDest{screenPos.x, screenPos.y, scale * width, scale * height};
     Vector2 knightOrigin{};
     DrawTexturePro(texture, knightSource, knightDest, knightOrigin, 0.0f, WHITE);
 }
