@@ -1,6 +1,7 @@
 #include "raylib.h"
 #include "raymath.h"
 #include "character.h"
+#include "prop.h"
 
 void draw_worldMap(Texture2D worldMap, Vector2 mapPos)
 {
@@ -25,6 +26,9 @@ int main()
     const float mapScale{4.0};
 
     character knight(WindowWidth, WindowHeight);
+    
+    //call member list from prop.h
+    Prop rock{Vector2{0.f,0.f}, LoadTexture("nature_tileset/Rock.png")};
 
     SetTargetFPS(60);
     while (!WindowShouldClose())
@@ -37,6 +41,9 @@ int main()
 
         // draw the world map
         draw_worldMap(worldMap, mapPos);
+
+        // draw rock
+        rock.Render(knight.getWorldPos());
 
         //set player tick movement
         knight.tick(GetFrameTime());
