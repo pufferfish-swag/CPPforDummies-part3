@@ -2,6 +2,7 @@
 #include "raymath.h"
 #include "character.h"
 #include "prop.h"
+#include "enemy.h"
 
 void draw_worldMap(Texture2D worldMap, Vector2 mapPos)
 {
@@ -23,12 +24,22 @@ int main()
 
     Texture2D worldMap = LoadTexture("nature_tileset/WorldMap24x24.png");
     Vector2 mapPos{0.0, 0.0};
-    const float mapScale{4.0};
+    const float mapScale{4.0f};
 
-    character knight(WindowWidth, WindowHeight);
+    Character knight(WindowWidth, WindowHeight);
     
     //call member list from prop.h
-    Prop rock{Vector2{0.f,0.f}, LoadTexture("nature_tileset/Rock.png")};
+    Prop props[2]{
+        Prop{Vector2{600.f,300.f}, LoadTexture("nature_tileset/Rock.png")},
+        Prop{Vector2{300.f,500.f}, LoadTexture("nature_tileset/Log.png")}
+    };
+
+    Enemy goblin{
+        Vector2{},
+        LoadTexture("characters/goblin_idle_spritesheet.png"),
+        LoadTexture("characters/goblin_run_spritesheet.png")
+    };
+
 
     SetTargetFPS(60);
     while (!WindowShouldClose())
@@ -42,8 +53,10 @@ int main()
         // draw the world map
         draw_worldMap(worldMap, mapPos);
 
-        // draw rock
-        rock.Render(knight.getWorldPos());
+        // draw the props - why stephen didn't put the checkCollisionRec here?
+        for(auto prop : props){
+            prop.Render(knight.getWorldPos());
+        }
 
         //set player tick movement
         knight.tick(GetFrameTime());
@@ -52,11 +65,22 @@ int main()
             knight.getWorldPos().y < 0.f ||
             knight.getWorldPos().x + WindowWidth > worldMap.width * mapScale ||
             knight.getWorldPos().y + WindowHeight > worldMap.height * mapScale)
-            {  knight.undoMovement();  }
+            {  
+                knight.undoMovement();  
+            }
+        //check prop collision
+        for(auto prop : props){
+            if (CheckCollisionRecs(prop.getCollisionRec(knight.getWorldPos()), knight.getCollisionRec()))
+            {
+                knight.undoMovement();
+            }
+        }
+        //draw the enemy
+        goblin.tick(GetFrameTime());
 
         EndDrawing();
     }
-
+    
     UnloadTexture(worldMap);
 
     CloseWindow();

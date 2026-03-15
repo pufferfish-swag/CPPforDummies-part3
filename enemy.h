@@ -1,20 +1,19 @@
 #include "raylib.h"
 
-class Character
-{
-public:
-    //declare character.cpp
-    Character(int winWidth, int winHeight);
+class Enemy{
+    public:
+    Enemy(Vector2 pos, Texture2D idle_texture, Texture2D run_texture);
     Vector2 getWorldPos() { return worldPos; }
     void tick(float deltaTime);
     void undoMovement();
     Rectangle getCollisionRec();
-private:
-    Texture2D texture{LoadTexture("characters/knight_idle_spritesheet.png")};
-    Texture2D idle{LoadTexture("characters/knight_idle_spritesheet.png")};
-    Texture2D run{LoadTexture("characters/knight_run_spritesheet.png")};
-    Vector2 screenPos{};
+
+    private:
+    Texture2D texture{LoadTexture("characters/goblin_idle_spritesheet.png")};
+    Texture2D idle{LoadTexture("characters/goblin_idle_spritesheet.png")};
+    Texture2D run{LoadTexture("characters/goblin_run_spritesheet.png")};
     Vector2 worldPos{};
+    Vector2 screenPos{};
     Vector2 worldPosLastFrame{};
     // 1: facing right, -1: facing left
     float rightLeft{1.f};

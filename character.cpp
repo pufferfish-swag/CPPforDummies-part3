@@ -1,7 +1,7 @@
 #include "character.h"
 #include "raymath.h"
 
-character::character(int winWidth, int winHeight){
+Character::Character(int winWidth, int winHeight){
     width = texture.width / maxFrames;
     height = texture.height;
 
@@ -10,7 +10,7 @@ character::character(int winWidth, int winHeight){
     };
 }
 
-void character::tick(float deltaTime)
+void Character::tick(float deltaTime)
 {
     worldPosLastFrame = worldPos;
     
@@ -56,6 +56,15 @@ void character::tick(float deltaTime)
     DrawTexturePro(texture, knightSource, knightDest, knightOrigin, 0.0f, WHITE);
 }
 
-void character::undoMovement(){
+void Character::undoMovement(){
     worldPos = worldPosLastFrame;
+}
+
+Rectangle Character::getCollisionRec(){
+    return Rectangle{
+        screenPos.x, 
+        screenPos.y, 
+        width * scale, 
+        height * scale
+    };
 }
