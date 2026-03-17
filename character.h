@@ -1,6 +1,8 @@
 #include "raylib.h"
+#include "BaseCharacter.h"
 
-class Character
+//character inherit from base character
+class Character : public BaseCharacter
 {
 public:
     //declare character.cpp

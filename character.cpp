@@ -1,6 +1,7 @@
 #include "character.h"
 #include "raymath.h"
 
+//this is called constructor
 Character::Character(int winWidth, int winHeight){
     width = texture.width / maxFrames;
     height = texture.height;
