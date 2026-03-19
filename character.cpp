@@ -56,16 +56,3 @@ void Character::tick(float deltaTime)
     Vector2 knightOrigin{};
     DrawTexturePro(texture, knightSource, knightDest, knightOrigin, 0.0f, WHITE);
 }
-
-void Character::undoMovement(){
-    worldPos = worldPosLastFrame;
-}
-
-Rectangle Character::getCollisionRec(){
-    return Rectangle{
-        screenPos.x, 
-        screenPos.y, 
-        width * scale, 
-        height * scale
-    };
-}
