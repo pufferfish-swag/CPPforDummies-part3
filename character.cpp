@@ -13,8 +13,8 @@ Character::Character(int winWidth, int winHeight){
 
 void Character::tick(float deltaTime)
 {
-    worldPosLastFrame = worldPos;
-    
+    BaseCharacter::tick(deltaTime);
+
     Vector2 direction{};
     const float movMapSpeed{1.0};
     if (IsKeyDown(KEY_A))
@@ -41,18 +41,4 @@ void Character::tick(float deltaTime)
         // set knight as idle
         texture = idle;
     }
-    // update anim frame, shift + alt + f for formatting
-    runningTime += deltaTime;
-    if (runningTime > updateTime)
-    {
-        frame++;
-        runningTime = 0.f;
-        if (frame > maxFrames)
-            frame = 0;
-    }
-
-    Rectangle knightSource{frame * width, 0.0f, rightLeft * width, height};
-    Rectangle knightDest{screenPos.x, screenPos.y, scale * width, scale * height};
-    Vector2 knightOrigin{};
-    DrawTexturePro(texture, knightSource, knightDest, knightOrigin, 0.0f, WHITE);
 }

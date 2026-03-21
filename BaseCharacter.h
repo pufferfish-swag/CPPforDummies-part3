@@ -1,4 +1,4 @@
-//`if not define` elsewhere
+//`if not define`
 #ifndef BASE_CHARACTER_H
 #define BASE_CHARACTER_H
 #include "raylib.h"
@@ -9,6 +9,7 @@ class BaseCharacter{
         Vector2 getWorldPos() { return worldPos; }
         void undoMovement();
         Rectangle getCollisionRec();
+        virtual void tick(float deltaTime);
     protected:
         Texture2D texture{LoadTexture("characters/knight_idle_spritesheet.png")};
         Texture2D idle{LoadTexture("characters/knight_idle_spritesheet.png")};
