@@ -10,7 +10,7 @@ class BaseCharacter{
         void undoMovement();
         Rectangle getCollisionRec();
         virtual void tick(float deltaTime);
-        virtual Vector2 getScreenPos() = 0;
+        virtual Vector2 getScreenPos() = 0; // This is `Pure Virtual` function
     protected:
         Texture2D texture{LoadTexture("characters/knight_idle_spritesheet.png")};
         Texture2D idle{LoadTexture("characters/knight_idle_spritesheet.png")};
