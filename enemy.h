@@ -11,4 +11,5 @@ class Enemy : public BaseCharacter
         virtual Vector2 getScreenPos() override;
     private:
         Character* target;
+        float damagePerSec{10.f};
 };
