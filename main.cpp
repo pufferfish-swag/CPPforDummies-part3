@@ -3,6 +3,7 @@
 #include "character.h"
 #include "prop.h"
 #include "enemy.h"
+#include <string>
 
 void draw_worldMap(Texture2D worldMap, Vector2 mapPos)
 {
@@ -56,6 +57,21 @@ int main()
         // draw the props - why stephen didn't put the checkCollisionRec here?
         for(auto prop : props){
             prop.Render(knight.getWorldPos());
+        }
+
+        //char death
+        if (!knight.getAlive()){
+            DrawText("Game Over!", 55, 55, 45, RED);
+            EndDrawing();
+            continue;
+        }
+        //char alive
+        else
+        {
+            std::string knightsHealth = "Health: ";
+
+            knightsHealth.append(std::to_string(knight.getHealth()), 0, 5);
+            DrawText(knightsHealth.c_str(), 55.f, 45.f, 40, RED);
         }
 
         //set player tick movement
