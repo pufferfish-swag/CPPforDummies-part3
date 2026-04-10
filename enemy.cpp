@@ -18,6 +18,7 @@ void Enemy::tick(float deltaTime){
     //alive checker
     if(!getAlive()) return;
     velocity = Vector2Subtract(target->getScreenPos(), getScreenPos());
+    if (Vector2Length(velocity) < radius) velocity = {};//check if enemy reach the radius
     BaseCharacter::tick(deltaTime);
     if(CheckCollisionRecs(target->getCollisionRec(),getCollisionRec()))
     {
